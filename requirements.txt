@@ -5,4 +5,3 @@ streamlit-scrollable-textbox==0.0.3
 pandas==2.2.1
 openai==1.13.3
 google-generativeai==0.4.0
-python-dotenv==1.0.1
