@@ -83,7 +83,7 @@ class GPT:
 class Dalle: 
 
     def __init__(self, style='colored comic book'): 
-        self.client = OpenAI(api_key=st.secrets['GOOGLE_API_KEY'])
+        self.client = OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
         self.style = style
     
     def gen_image(self, answer): 
@@ -102,8 +102,7 @@ class GeminiText:
 
     def __init__(self, init_prompt): 
         self.init_prompt = init_prompt
-        load_dotenv(dotenv_path='api_key.env')
-        genai.configure(api_key=os.getenv('API_KEY'))
+        genai.configure(api_key=st.secrets['GOOGLE_API_KEY'])
         self.model = genai.GenerativeModel('gemini-pro')
     
     def read_history(self, history): 
