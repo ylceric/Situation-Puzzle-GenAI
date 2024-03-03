@@ -2,13 +2,13 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 import google.generativeai as genai
+import streamlit as st
 
 class GPT:
 
     def __init__(self, init_prompt, is_4 = True): 
         self.init_prompt = init_prompt
-        load_dotenv(dotenv_path='api_key.env')
-        self.client = OpenAI(api_key=os.getenv('API_KEY'))
+        self.client = OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
         self.gpt_ver = 'gpt-4-0125-preview' if is_4 else 'gpt-3.5-turbo-0125'
     
     def read_history(self, history): 
@@ -84,8 +84,7 @@ class GPT:
 class Dalle: 
 
     def __init__(self, style='colored comic book'): 
-        load_dotenv(dotenv_path='api_key.env')
-        self.client = OpenAI(api_key=os.getenv('API_KEY'))
+        self.client = OpenAI(api_key=st.secrets['GOOGLE_API_KEY'])
         self.style = style
     
     def gen_image(self, answer): 
