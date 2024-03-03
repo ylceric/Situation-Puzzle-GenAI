@@ -1,0 +1,7 @@
+st-pages==0.4.5
+streamlit==1.31.1
+streamlit-chatbox==1.1.11
+streamlit-scrollable-textbox==0.0.3
+pandas==2.2.1
+openai==1.13.3
+google-generativeai==0.4.0
