@@ -6,6 +6,7 @@ import streamlit_scrollable_textbox as stx
 import pandas as pd
 import random
 import os
+import glob
 
 st.set_page_config(
     page_title='Situation Puzzle', 
@@ -24,9 +25,10 @@ if st.sidebar.button('🔄 New Game'):
 bot_llm = st.sidebar.radio('Bot LLM: ', ['OpenAI-GPT-4.0', 'OpenAI-GPT-3.5', 'Gemini Pro'])
 image_gen_model = st.sidebar.radio('Image GenAI: ', ['DALL·E 3'])
 image_style = st.sidebar.radio('Image Style: ', ['Comic', 'Realistic'])
+p_avatar = st.sidebar.selectbox('Choose Avatar: ', glob.glob('avatars/*.jpg'))
+st.sidebar.image(p_avatar)
 st.sidebar.divider()
 show_quick_question = st.sidebar.button('Question Suggestion')
-# guess_mode = st.sidebar.checkbox('Ready to Guess')
 st.sidebar.divider()
 
 st.sidebar.markdown('**This demo presented by:**')
@@ -57,16 +59,22 @@ st.header('AI🤖 vs. Human Player🧩', divider='rainbow')
 st.subheader('Here is a Situation Puzzle for you...')
 stx.scrollableTextbox(QUESTION, height=150)
 
-chat_box.output_messages()
+llm_avatar = "assistant"
 
 # initialize llm
 if bot_llm == 'OpenAI-GPT-4.0': 
     llm = api_request.GPT(INIT_PROMPT)
+    llm_avatar = 'avatars/LLM/OpenAI-GPT.jpg'
 elif bot_llm == 'OpenAI-GPT-3.5': 
     llm = api_request.GPT(INIT_PROMPT, is_4=False)
+    llm_avatar = 'avatars/LLM/OpenAI-GPT.jpg'
 elif bot_llm == 'Gemini Pro':
     llm = api_request.GeminiText(INIT_PROMPT)
+    llm_avatar = 'avatars/LLM/Gemini.jpg'
 
+
+chat_box = stc.ChatBox(user_avatar=p_avatar, assistant_avatar=llm_avatar)
+chat_box.output_messages()
 
 guess_mode = st.toggle('Ready to Guess')
 

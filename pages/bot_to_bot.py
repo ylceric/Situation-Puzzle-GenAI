@@ -56,28 +56,37 @@ st.header('AI🤖 vs. AI🤖', divider='rainbow')
 st.subheader('Here is a Situation Puzzle for you...')
 stx.scrollableTextbox(QUESTION, height=150)
 
-chat_box.output_messages()
-
+llm_avatar = "assistant"
+llm_p_avatar =  "user"
 
 # initialize bot llm
 if bot_llm == 'OpenAI-GPT-4.0': 
     llm = api_request.GPT(INIT_PROMPT)
+    llm_avatar = 'avatars/LLM/OpenAI-GPT.jpg'
 elif bot_llm == 'OpenAI-GPT-3.5': 
     llm = api_request.GPT(INIT_PROMPT, is_4=False)
+    llm_avatar = 'avatars/LLM/OpenAI-GPT.jpg'
 elif bot_llm == 'Gemini Pro':
     llm = api_request.GeminiText(INIT_PROMPT)
+    llm_avatar = 'avatars/LLM/Gemini.jpg'
 
 # initialize player llm
 if player_llm == 'OpenAI-GPT-4.0': 
     llm_p = api_request.GPT(INIT_PROMPT)
+    llm_p_avatar = 'avatars/LLM/OpenAI-GPT.jpg'
 elif player_llm == 'OpenAI-GPT-3.5': 
     llm_p = api_request.GPT(INIT_PROMPT, is_4=False)
+    llm_p_avatar = 'avatars/LLM/OpenAI-GPT.jpg'
 elif player_llm == 'Gemini Pro':
     llm_p = api_request.GeminiText(INIT_PROMPT)
+    llm_p_avatar = 'avatars/LLM/Gemini.jpg'
 
 is_over = True
 if st.button('Start Game'): 
     is_over = False
+
+chat_box = stc.ChatBox(user_avatar=llm_p_avatar, assistant_avatar=llm_avatar)
+chat_box.output_messages()
 
 while not is_over:
     with st.spinner('AI Generating...'):
