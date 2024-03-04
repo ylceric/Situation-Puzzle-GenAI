@@ -16,7 +16,8 @@ chat_box = stc.ChatBox()
 
 # config sidebar
 if st.sidebar.button('🔄 New Game'): 
-    os.remove('question.tmp')
+    if os.path.isfile('question.tmp'): 
+        os.remove('question.tmp')
     chat_box.reset_history()
     st.rerun()
 
