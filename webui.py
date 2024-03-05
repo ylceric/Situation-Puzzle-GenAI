@@ -30,7 +30,8 @@ st_pages.show_pages([
 
     st_pages.Section(name='Play!', icon='🔽'), 
     st_pages.Page('pages/bot_to_player.py', 'AI vs. Player', '🕹️'),
-    st_pages.Page('pages/bot_to_bot.py', 'AI vs. AI', '🤖')
+    st_pages.Page('pages/bot_to_bot.py', 'AI vs. AI', '🤖'), 
+    st_pages.Page('pages/bot_to_player_AI_Questions.py', 'AI Generated Puzzles (BETA)', '🤖')
 ])
 
 st.sidebar.markdown('**This demo presented by:**')

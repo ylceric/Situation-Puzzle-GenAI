@@ -76,7 +76,21 @@ class GPT:
         gpt_return = self.client.chat.completions.create(model=self.gpt_ver, messages=messages)
 
         return gpt_return.choices[0].message.content
+    
+    def generate_puzzle(self, topic): 
+        messages = []
+        messages.append({"role": "system", "content": self.init_prompt})
+
+        messages.append({"role": "user", "content": f"Please generate a situation puzzle question and answer based on {topic} topic. Output to me strictly in first line question, second line answer format, e.g. \n[question]\n[answer]\nDo not output other than question or answer text"})
+
+        q_and_a = []
+
+        while len(q_and_a) != 2: 
+            gpt_return = self.client.chat.completions.create(model=self.gpt_ver, messages=messages).choices[0].message.content
+            q_and_a = gpt_return.split('\n')
+            print(gpt_return)
         
+        return (q_and_a[0], q_and_a[1])
         
 
     
